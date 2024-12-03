@@ -35,13 +35,14 @@ export async function handle (command: Command): Promise<void> {
 
   const to = process.env.SENDGRID_TO_EMAIL
   if (!to) throw new Error('SENDGRID_TO_EMAIL is not defined')
+  const tos = to.split(';')
 
   const { page, lead } = schema.validateSync(command)
 
   const text = mapTextToMailTemplate(command)
 
   const msg: MailDataRequired = {
-    to,
+    to: tos,
     from,
     subject: `Contato - [${page}] ${lead ? ` - [${lead}]` : ''}`,
     text
