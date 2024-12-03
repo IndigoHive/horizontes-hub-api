@@ -1,0 +1,28 @@
+{
+  "name": "horizontes-hub-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "dotenv -e .env.local -e .env -- nodemon app.ts | pino-pretty"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@sendgrid/mail": "^8.1.4",
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2",
+    "yup": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "dotenv-cli": "^7.4.4",
+    "pino-pretty": "^13.0.0"
+  }
+}
