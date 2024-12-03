@@ -1,17 +1,17 @@
 import { Command } from '../services'
 
 export function mapTextToMailTemplate (command: Command) {
-  const { content, email, name, page, phone, userType, challenge, lead } = command
+  const { content, email, name, phone, userType, challenge, lead, site } = command
 
   return `
     Nome: ${name}
     Lead: ${lead ? lead : 'Não informado'}
     E-mail: ${email}
     Celular: ${phone}
+    ${site ? `Site: ${site}` : ''}
     ${content ? `Apresentação: ${content}` : ''}
-    ${userType ? `Tipo de Usuário: ${userType} ` : ''}
     ${challenge ? `Desafio: ${challenge} ` : ''}
 
-    Página de origem: ${page}
+    Tipo de Usuário: ${userType}
   `
 }

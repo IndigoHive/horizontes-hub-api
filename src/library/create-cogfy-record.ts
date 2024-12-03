@@ -49,7 +49,7 @@ export async function createCogfyRecord (command: Command) {
       '4f2a296a-46e2-47a7-ae16-30c3d8652397': {
         type: 'text',
         text: {
-          value: command.page
+          value: command.site ? command.site : '-'
         }
       }
     }

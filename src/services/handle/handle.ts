@@ -8,9 +8,9 @@ export type Command = {
   email: string
   phone: string
   content?: string | null
-  userType?: 'contact' | 'support' | 'feedback' | null
+  userType: 'contact' | 'support' | 'feedback'
   challenge?: string | null
-  page: string
+  site?: string | null
 }
 
 const schema = yup.object().shape({
@@ -19,9 +19,9 @@ const schema = yup.object().shape({
   email: yup.string().email().required(),
   phone: yup.string().required(),
   content: yup.string().nullable(),
-  userType: yup.string().nullable(),
+  userType: yup.string().required(),
   challenge: yup.string().nullable(),
-  page: yup.string().required()
+  site: yup.string().nullable()
 })
 
 export async function handle (command: Command): Promise<void> {
@@ -37,14 +37,14 @@ export async function handle (command: Command): Promise<void> {
   if (!to) throw new Error('SENDGRID_TO_EMAIL is not defined')
   const tos = to.split(';')
 
-  const { page, lead } = schema.validateSync(command)
+  const { lead, userType } = schema.validateSync(command)
 
   const text = mapTextToMailTemplate(command)
 
   const msg: MailDataRequired = {
     to: tos,
     from,
-    subject: `Contato - [${page}] ${lead ? ` - [${lead}]` : ''}`,
+    subject: `Contato - ${userType} ${lead ? ` - [${lead}]` : ''}`,
     text
   }
 
