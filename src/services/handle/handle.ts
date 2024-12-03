@@ -15,11 +15,11 @@ export type Command = {
 
 const schema = yup.object().shape({
   name: yup.string().required(),
-  lead: yup.string().nullable(),
-  email: yup.string().email().required(),
   phone: yup.string().required(),
-  content: yup.string().nullable(),
   userType: yup.string().required(),
+  email: yup.string().email().required(),
+  lead: yup.string().nullable(),
+  content: yup.string().nullable(),
   challenge: yup.string().nullable(),
   site: yup.string().nullable()
 })
