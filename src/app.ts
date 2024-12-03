@@ -12,6 +12,10 @@ app.post('/send-email', async (req, res) => {
     .catch((err) => res.status(400).json({ error: err.message }).send())
 })
 
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' }).send()
+})
+
 app.listen(3000, () => {
   console.log('Server is running on http://localhost:3000')
 })
