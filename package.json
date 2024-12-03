@@ -4,7 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "dotenv -e .env.local -e .env -- nodemon app.ts | pino-pretty"
+    "dev": "dotenv -e .env.local -e .env -- nodemon app.ts | pino-pretty",
+    "build": "tsc",
+    "start": "node dist/app.js"
   },
   "keywords": [],
   "author": "",
