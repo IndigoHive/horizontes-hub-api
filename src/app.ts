@@ -1,5 +1,5 @@
 import express from 'express'
-import { sendEmail } from './src'
+import { sendEmail } from './services'
 import cors from 'cors'
 
 const app = express()
