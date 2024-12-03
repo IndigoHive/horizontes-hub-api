@@ -2,6 +2,8 @@ import express from 'express'
 import { sendEmail } from './services'
 import cors from 'cors'
 
+const port = process.env.PORT || 3000
+
 const app = express()
 app.use(express.json())
 app.use(cors())
@@ -16,6 +18,6 @@ app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' }).send()
 })
 
-app.listen(3000, () => {
-  console.log('Server is running on http://localhost:3000')
+app.listen(port, () => {
+  console.log('Server is running on port ' + port)
 })
