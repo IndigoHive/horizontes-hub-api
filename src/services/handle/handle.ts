@@ -1,7 +1,8 @@
 import sendgrid, { MailDataRequired } from '@sendgrid/mail'
 import * as yup from 'yup'
+import { createCogfyRecord, mapTextToMailTemplate } from '../../library'
 
-type Body = {
+export type Command = {
   name: string
   lead?: string | null
   email: string
@@ -23,7 +24,7 @@ const schema = yup.object().shape({
   page: yup.string().required()
 })
 
-export async function sendEmail (body: Body): Promise<void> {
+export async function handle (command: Command): Promise<void> {
   const apiKey = process.env.SENDGRID_API_KEY
   if (!apiKey) throw new Error('SENDGRID_API_KEY is not defined')
 
@@ -35,9 +36,9 @@ export async function sendEmail (body: Body): Promise<void> {
   const to = process.env.SENDGRID_TO_EMAIL
   if (!to) throw new Error('SENDGRID_TO_EMAIL is not defined')
 
-  const { page, lead } = schema.validateSync(body)
+  const { page, lead } = schema.validateSync(command)
 
-  const text = mapTextToMailTemplate(body)
+  const text = mapTextToMailTemplate(command)
 
   const msg: MailDataRequired = {
     to,
@@ -51,20 +52,6 @@ export async function sendEmail (body: Body): Promise<void> {
     .catch((error) => {
       throw new Error(error)
     })
-}
 
-const mapTextToMailTemplate = (body: Body): string => {
-  const { content, email, name, page, phone, userType, challenge, lead } = body
-
-  return `
-    Nome: ${name}
-    Lead: ${lead ? lead : 'Não informado'}
-    E-mail: ${email}
-    Celular: ${phone}
-    ${content ? `Apresentação: ${content}` : ''}
-    ${userType ? `Tipo de Usuário: ${userType} ` : ''}
-    ${challenge ? `Desafio: ${challenge} ` : ''}
-
-    Página de origem: ${page}
-  `
+  await createCogfyRecord(command)
 }
