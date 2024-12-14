@@ -48,11 +48,12 @@ export async function handle (command: Command): Promise<void> {
     text
   }
 
-  await sendgrid.send(msg)
-    .then(() => console.log('Email sent successfully'))
-    .catch((error) => {
-      throw new Error(error)
-    })
-
-  await createCogfyRecord(command)
+  await Promise.all([
+    await sendgrid.send(msg)
+      .then((res) => res)
+      .catch((error) => {
+        throw new Error(error)
+      }),
+    await createCogfyRecord(command)
+  ])
 }
