@@ -2,7 +2,7 @@ import sendgrid, { MailDataRequired } from '@sendgrid/mail'
 import * as yup from 'yup'
 import { cogfy, mapTextToMailTemplate } from '../../library'
 
-export type Command = {
+export type CreateLeadRecordCommand = {
   name: string
   lead?: string | null
   email: string
@@ -24,7 +24,7 @@ const schema = yup.object().shape({
   site: yup.string().nullable()
 })
 
-export async function createLead (command: Command): Promise<void> {
+export async function createLead (command: CreateLeadRecordCommand): Promise<void> {
   const apiKey = process.env.SENDGRID_API_KEY
   if (!apiKey) throw new Error('SENDGRID_API_KEY is not defined')
 
@@ -58,7 +58,7 @@ export async function createLead (command: Command): Promise<void> {
   ])
 }
 
-export async function createLeadRecord (command: Command) {
+export async function createLeadRecord (command: CreateLeadRecordCommand) {
   await cogfy.records.create('b2c82a62-3b82-4be0-9b60-6dc863c8bd6c', {
     properties: {
       '2f8f3eec-6cf9-41b5-a426-39762624f674': {

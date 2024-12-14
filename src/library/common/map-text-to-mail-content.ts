@@ -1,6 +1,6 @@
-import { Command } from '../../services'
+import { CreateLeadRecordCommand } from '../../services'
 
-export function mapTextToMailTemplate (command: Command) {
+export function mapTextToMailTemplate (command: CreateLeadRecordCommand) {
   const { content, email, name, phone, userType, challenge, lead, site } = command
 
   return `
