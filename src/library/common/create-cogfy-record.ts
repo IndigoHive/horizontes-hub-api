@@ -1,5 +1,5 @@
 import { cogfy } from '../clients'
-import { Command } from '../services'
+import { Command } from '../../services'
 
 export async function createCogfyRecord (command: Command) {
   await cogfy.records.create('b2c82a62-3b82-4be0-9b60-6dc863c8bd6c', {

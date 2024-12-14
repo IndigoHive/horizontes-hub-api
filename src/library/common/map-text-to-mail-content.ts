@@ -1,4 +1,4 @@
-import { Command } from '../services'
+import { Command } from '../../services'
 
 export function mapTextToMailTemplate (command: Command) {
   const { content, email, name, phone, userType, challenge, lead, site } = command
