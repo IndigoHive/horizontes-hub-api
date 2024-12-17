@@ -6,7 +6,8 @@ Public API to handle with Framer webhook.
 ## Endpoints
 | Method | Endpoint       | Description                 |
 |--------|----------------|-----------------------------|
-| **POST**    | `/forms/lead`       | Creates a new lead and throws e-mail notification by SendGrid  |
+| **POST**    | `/forms/lead`       | Creates a new lead and sends an e-mail notification by SendGrid  |
+| **POST**    | `/forms/contact`       | Creates a new contact and sends an e-mail notification by SendGrid  |
 
 ## Scripts
 | Script           | Description                                                        |
