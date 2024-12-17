@@ -1,17 +1,20 @@
-import { CreateLeadRecordCommand } from '../../services'
+import { CreateContactCommand, CreateLeadRecordCommand } from '../../services'
 
-export function mapTextToMailTemplate (command: CreateLeadRecordCommand) {
-  const { content, email, name, phone, userType, challenge, lead, site } = command
+export type mapTextToMailTemplateParams = CreateLeadRecordCommand | CreateContactCommand
+
+export function mapTextToMailTemplate (params: mapTextToMailTemplateParams) {
+  const { name, email, phone } = params
 
   return `
     Nome: ${name}
-    Lead: ${lead ? lead : 'Não informado'}
     E-mail: ${email}
     Celular: ${phone}
-    ${site ? `Site: ${site}` : ''}
-    ${content ? `Apresentação: ${content}` : ''}
-    ${challenge ? `Desafio: ${challenge} ` : ''}
-
-    Tipo de Usuário: ${userType}
+    ${'company' in params ? `Empresa: ${params.company}` : ''}
+    ${'subject' in params ? `Assunto: ${params.subject}` : ''}
+    ${'lead' in params ? `Lead: ${params.lead ? params.lead : 'Não informado'}` : ''}
+    ${'content' in params ? `Apresentação: ${params.content ? params.content : 'Não informado'}` : ''}
+    ${'challenge' in params ? `Desafio: ${params.challenge ? params.challenge : 'Não informado'}` : ''}
+    ${'site' in params ? `Site: ${params.site ? params.site : 'Não informado'}` : ''}
+    ${'userType' in params ? `Tipo de Usuário: ${params.userType}` : ''}
   `
 }
