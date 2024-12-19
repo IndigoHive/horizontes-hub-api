@@ -15,7 +15,7 @@ const schema = yup.object().shape({
   email: yup.string().email().required(),
   company: yup.string().required(),
   phone: yup.string().required(),
-  subject: yup.string().required()
+  subject: yup.string().nullable()
 })
 
 export async function createContact (command: CreateContactCommand): Promise<void> {
@@ -84,7 +84,7 @@ export async function createContactRecord (command: CreateContactCommand) {
       'e9162354-31ba-422c-a149-0b66865672b9': {
         type: 'text',
         text: {
-          value: subject
+          value: subject ?? ''
         },
       }
     }
