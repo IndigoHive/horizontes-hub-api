@@ -43,12 +43,12 @@ export async function createContact (command: CreateContactCommand): Promise<voi
   }
 
   await Promise.all([
+    await createContactRecord(command),
     await sendgrid.send(msg)
       .then((res) => res)
       .catch((error) => {
         throw new Error(error)
-      }),
-    await createContactRecord(command)
+      })
   ])
 }
 
