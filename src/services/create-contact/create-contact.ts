@@ -7,7 +7,7 @@ export type CreateContactCommand = {
   email: string
   company: string
   phone: string
-  subject: string
+  subject: string | null
 }
 
 const schema = yup.object().shape({
@@ -43,17 +43,17 @@ export async function createContact (command: CreateContactCommand): Promise<voi
   }
 
   await Promise.all([
-    await createContactRecord(command),
     await sendgrid.send(msg)
       .then((res) => res)
       .catch((error) => {
         throw new Error(error)
-      })
+      }),
+    await createContactRecord(command)
   ])
 }
 
 export async function createContactRecord (command: CreateContactCommand) {
-  const { name, email, company, phone, subject } = schema.validateSync(command)
+  const { name, email, company, phone, subject } = command
 
   await cogfy.records.create('764a5d49-7efe-4a61-acf1-92b78fb6fca0', {
     properties: {
