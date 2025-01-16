@@ -11,6 +11,7 @@ export type CreateLeadRecordCommand = {
   userType: 'contact' | 'support' | 'feedback'
   challenge?: string | null
   site?: string | null
+  crm?: string | null
 }
 
 const schema = yup.object().shape({
@@ -21,7 +22,8 @@ const schema = yup.object().shape({
   lead: yup.string().nullable(),
   content: yup.string().nullable(),
   challenge: yup.string().nullable(),
-  site: yup.string().nullable()
+  site: yup.string().nullable(),
+  crm: yup.string().nullable()
 })
 
 export async function createLead (command: CreateLeadRecordCommand): Promise<void> {
@@ -107,6 +109,12 @@ export async function createLeadRecord (command: CreateLeadRecordCommand) {
         type: 'text',
         text: {
           value: command.site ? command.site : '-'
+        }
+      },
+      '9caa2b16-c0d9-46af-a1f7-de8b9a46fec8': {
+        type: 'text',
+        text: {
+          value: command.crm ? command.crm : '-'
         }
       }
     }
