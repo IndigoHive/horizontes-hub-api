@@ -16,5 +16,6 @@ export function mapTextToMailTemplate (params: mapTextToMailTemplateParams) {
     ${'challenge' in params ? `Desafio: ${params.challenge ? params.challenge : 'Não informado'}` : ''}
     ${'site' in params ? `Site: ${params.site ? params.site : 'Não informado'}` : ''}
     ${'userType' in params ? `Tipo de Usuário: ${params.userType}` : ''}
+    ${'crm' in params ? `CRM: ${params.crm ? params.crm : 'Não informado'}` : ''}
   `
 }
