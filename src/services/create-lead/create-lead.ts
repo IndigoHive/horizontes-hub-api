@@ -12,7 +12,7 @@ export type CreateLeadRecordCommand = {
   challenge?: string | null
   site?: string | null
   crm?: string | null
-  solutionLink?: string | null
+  challengeLink?: string | null
 }
 
 const schema = yup.object().shape({
@@ -25,7 +25,7 @@ const schema = yup.object().shape({
   challenge: yup.string().nullable(),
   site: yup.string().nullable(),
   crm: yup.string().nullable(),
-  solutionLink: yup.string().nullable()
+  challengeLink: yup.string().nullable()
 })
 
 export async function createLead (command: CreateLeadRecordCommand): Promise<void> {
@@ -122,7 +122,7 @@ export async function createLeadRecord (command: CreateLeadRecordCommand) {
       'a3419722-d13c-4dd3-904f-89f591a578d0': {
         type: 'text',
         text: {
-          value: command.solutionLink ? command.solutionLink : '-'
+          value: command.challengeLink ? command.challengeLink : '-'
         }
       }
     }
